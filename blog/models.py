@@ -1,0 +1,28 @@
+from django.db import models
+from django.utils import timezone
+from django.core.validators import RegexValidator
+
+CHOICES = (
+    ('dev','Developer'),
+    ('rep', 'Reporter'),
+    ('manager','Manager'),
+)
+class Post(models.Model):
+    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    First_Name = models.CharField(max_length=30)
+    Last_Name = models.CharField(max_length=30)
+    Email_Address = models.EmailField()
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '9848012345'. Up to 10 digits allowed.")
+    Phone_Number = models.CharField(validators=[phone_regex], max_length=10, blank=True) # validators should be a list
+    Contact Number= models.charField(max_length=10)
+    Category= models.CharField(max_length=6, choices=CHOICES, default='Developer')
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
+    @property
+    def friendly_email(self):
+        return mark_safe(u"%s <%s>") % (escape(self.fullname), escape(self.Email_Address))
