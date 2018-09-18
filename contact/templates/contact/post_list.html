@@ -1,19 +1,13 @@
-<html>
-    <head>
-        <title>Contact Card</title>
-    </head>
-    <body>
-        <div>
-            <h1><a href="/">Contact Card</a></h1>
-        </div>
-
-        {% for post in posts %}
-    <div>
-        <p>FirstName: {{ post.First_Name }}</p>
-        <h1><a href="">{{ post.Last_Name }}</a></h1>
+{% extends 'contact/base.html' %}
+{% block content %}
+            {% for post in posts %}
+                <div class="post">
+                    <div class="date">
+         {{ post.First_Name }}
+</div>
+        <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.Last_Name }}</a></h1>
         <p>{{ post.Phone_Number|linebreaksbr }}</p>
     </div>
-{% endfor %}
-        </div>
-    </body>
-</html>
+        {% endfor %}
+{% endblock %}
+
