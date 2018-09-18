@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %}
+{% extends 'contact/base.html' %}
 
 {% block content %}
     <div class="post">
@@ -7,6 +7,9 @@
                 {{ post.First_Name }}
             </div>
         {% endif %}
+{% if user.is_authenticated %}
+<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+{% endif %}
         <h1>{{ post.Last_Name }}</h1>
         <p>{{ post.Phone_Number|linebreaksbr }}</p>
     </div>
